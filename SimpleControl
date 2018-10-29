@@ -1,0 +1,61 @@
+<!Just a small code which let's the user control a small point using the Arrow Keys>
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Move the Point</title>
+		<canvas id="gc" width="400" height="400"></canvas>
+	</head>
+	<body>
+		<script>
+		//Load canvas
+		window.onload=function() {
+    		canv=document.getElementById("gc");
+    		ctx=canv.getContext("2d");
+    		document.addEventListener("keydown",keyPush);
+    		setInterval(control,100);//calls the control function each 100millisec
+		}
+		px=py=10;//initial position
+		gs=tc=20;//grid size and tile count
+
+		function control() {
+			//If point leaves canvas' limits, the point appears on the other side
+			//of the canvas
+    		if(px<0) {
+        		px= tc-1;
+    		}
+    		if(px>tc-1) {
+        		px= 0;
+    		}
+    		if(py<0) {
+        		py= tc-1;
+    		}
+    		if(py>tc-1) {
+        		py= 0;
+    		}
+    		ctx.fillStyle="blue";
+    		ctx.fillRect(0,0,canv.width,canv.height);
+			//Paint point
+			ctx.fillStyle="red";
+			ctx.fillRect(px*gs,py*gs,gs-2,gs-2);
+		}
+
+		//Function that listens to the arrow keys and defines what they do
+		function keyPush(evt) {
+    		switch(evt.keyCode) {
+        		case 37:
+            		px--;
+            		break;
+        		case 38:
+            		py--;
+            		break;
+        		case 39:
+            		px++;
+            		break;
+        		case 40:
+            		py++;
+            		break;
+    		}
+		}
+		</script>
+	</body>
+</html>
